@@ -1,10 +1,8 @@
-package com.karateman.discordlink.spigot.util;
+package com.karateman.discordlink.modules.util;
 
-import com.karateman.discordlink.spigot.DiscordLinkPlugin;
-import org.yaml.snakeyaml.Yaml;
+import com.karateman.discordlink.DiscordLinkPlugin;
 
 import java.io.*;
-import java.util.Map;
 
 public class ConfigUtil {
 

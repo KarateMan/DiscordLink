@@ -1,9 +1,7 @@
 package com.karateman.discordlink.verification;
 
-import com.google.common.base.Verify;
 import com.google.gson.Gson;
-import com.karateman.discordlink.spigot.DiscordLinkPlugin;
-import net.dv8tion.jda.api.entities.User;
+import com.karateman.discordlink.DiscordLinkPlugin;
 import org.bukkit.entity.Player;
 
 import java.io.*;

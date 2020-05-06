@@ -1,9 +1,4 @@
 name: DiscordLink
 version: 0.0.1
 author: KarateMan
-main: com.karateman.discordlink.spigot.DiscordLinkPlugin
-commands:
-  verify:
-    description: Verify your discord account
-  discordlink:
-    description: Main DiscordLink command
+main: com.karateman.discordlink.DiscordLinkPlugin

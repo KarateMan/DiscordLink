@@ -11,6 +11,10 @@
 # Paste your token below
 token: 'token-placeholder'
 
+# Set these values to change the Bot's description in Discord
+server-name: 'Server'
+server-ip: 'server.com'
+
 # To quickly setup your discord server simply type /discordlink setup
 # If you know what you are doing you can set all of the IDs manually
 

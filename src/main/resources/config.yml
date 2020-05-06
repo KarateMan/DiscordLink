@@ -1,0 +1,88 @@
+###########################################################
+#                      Discord Setup                      #
+###########################################################
+# In order to setup your Discord Bot please follow the steps at https://discordpy.readthedocs.io/en/latest/discord.html
+
+# Note that the Bot must have the following permissions for each module although it is recommended to give it Administrator permissions:
+# Gamechat - Manage Channels, View Channels, Send Messages, and Read Message History
+# Verification - Manage Roles and Change Nickname
+# Commands - Send Messages, Read Message History, and Manage Messages
+
+# Paste your token below
+token: 'token-placeholder'
+
+# To quickly setup your discord server simply type /discordlink setup
+# If you know what you are doing you can set all of the IDs manually
+
+###########################################################
+#                      Gamechat Module                    #
+###########################################################
+# Settings related to the Gamechat Module
+
+# Enable the Gamechat Module
+gamechat-module: True
+
+# Gamechat channel id
+gamechat-id: '123'
+
+# The format that will be shown in Discord
+gamechat-discord-format: '%prefix% %username%: %message%'
+
+# The format that will be shown in game
+gamechat-server-format: '&8[&9Discord&8] &7%discord_nick% &8> &7%message%'
+
+# Server Start/Stop messages
+gamechat-startstop-messages: True
+gamechat-start-message: '**[Server] Server starting**'
+gamechat-stop-message: '**[Server] Server stopping**'
+
+# Player Login/Logout messages
+gamechat-loginlogout-messages: True
+gamechat-login-message: '%prefix% %username% Has logged in'
+gamechat-logout-message: '%prefix% %username% Has logged out'
+
+# Note that if you are using the Verification Module the channel should have send permissions denied for @everyone and allowed for Verified
+
+###########################################################
+#                   Verification Module                   #
+###########################################################
+# Settings related to the Verification Module
+
+# Enable the Verification Module
+verification-module: False
+
+# These will be automatically generated when you do /discordlink setup
+verification-channel-id: '123'
+verification-role-id: '123'
+
+# Change this to either json, mysql, or sqlite
+verification-storage: 'json'
+
+# Set your SQL settings if you choose to use it
+address: 'address'
+user: 'user'
+pass: 'pass'
+
+# Don't modify this
+verification-message: '123'
+
+# It is recommended that you remove the Change Nickname permission for everyone as the Verification Module will set their nickname to their in-game name
+
+###########################################################
+#                     Commands Module                     #
+###########################################################
+# Settings related to the Commands Module
+# WARNING: THIS MODULE RUNS COMMANDS AS CONSOLE. USE WITH CAUTION. REQUIRES USER TO HAVE ADMINISTRATOR PERMISSION IN DISCORD
+
+# Enable the Commands Module
+commands-module: False
+
+# Prefix to run commands
+commands-prefix: '/'
+
+# Prefix to run silent commands (Output is sent to DM)
+commands-silent-prefix: '#/'
+
+# Channel to allow commands to be run in
+# Use 'gamechat', 'any', or put in your own channel ID
+commands-channel: 'gamechat'

@@ -4,6 +4,7 @@ import com.karateman.discordlink.DiscordLinkPlugin;
 import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.util.RankUtil;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -15,9 +16,10 @@ public class GamechatSpigotChatEvent implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onChat(AsyncPlayerChatEvent event) {
         if(!Config.GAMECHAT_INGAME_MESSAGES.getAsBoolean()) return;
+        if(event.isCancelled()) return;
 
         String format = Config.GAMECHAT_DISCORD_FORMAT.getAsString();
         if(format.contains("%prefix%")) format = format.replace("%prefix%", plugin.getRankUtil().getRankPrefix(event.getPlayer()));

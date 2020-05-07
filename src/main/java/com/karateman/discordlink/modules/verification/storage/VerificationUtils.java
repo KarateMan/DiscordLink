@@ -1,4 +1,4 @@
-package com.karateman.discordlink.verification;
+package com.karateman.discordlink.modules.verification.storage;
 
 import com.google.gson.Gson;
 import com.karateman.discordlink.DiscordLinkPlugin;
@@ -159,5 +159,26 @@ public class VerificationUtils {
         }
 
         return "";
+    }
+
+    public void unVerify(Player player) {
+        String storageType = plugin.getConfig().getString("verification-storage");
+        if(storageType.equalsIgnoreCase("json")) {
+            try {
+                JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
+                jsonVerification.unVerify(player);
+
+                OutputStream outputStream = new FileOutputStream(new File("plugins/DiscordLink/verifications.json"));
+                outputStream.write(new Gson().toJson(jsonVerification).getBytes());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if(storageType.equalsIgnoreCase("mysql")) {
+            //TODO: Setup MySQL
+        } else if(storageType.equalsIgnoreCase("sqlite")) {
+            //TODO: Setup SQLite
+        }
     }
 }

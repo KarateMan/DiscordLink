@@ -12,8 +12,9 @@ public class CommandsModule implements Module {
     }
 
     @Override
-    public void setup() {
+    public boolean setup() {
 
+        return false;
     }
 
     @Override

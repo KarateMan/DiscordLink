@@ -1,6 +1,5 @@
 package com.karateman.discordlink;
 
-import com.karateman.discordlink.Bot;
 import com.karateman.discordlink.modules.util.DiscordUtils;
 import com.karateman.discordlink.modules.commands.CommandsModule;
 import com.karateman.discordlink.modules.gamechat.GamechatModule;
@@ -38,6 +37,7 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
         verificationModule = new VerificationModule(this);
         verificationModule.runStartup();
+        verificationModule.setup();
 
         commandsModule = new CommandsModule(this);
         commandsModule.runStartup();

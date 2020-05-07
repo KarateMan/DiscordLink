@@ -17,20 +17,24 @@ public class GamechatModule implements Module {
     }
 
     @Override
-    public void setup() {
-        if(isSetup()) return;
+    public boolean setup() {
+        if(isSetup()) return false;
 
         plugin.getJda().getGuilds().get(0).createCategory("discord link").queue((category) -> {
             category.createTextChannel("gamechat").queue((channel) -> {
                 plugin.getConfig().set("gamechat-id", channel.getId());
             });
         });
+
+        runStartup();
+
+        return true;
     }
 
     @Override
     public boolean isSetup() {
         if(!isEnabled()) return false;
-        if(plugin.getConfig().getString("gamechat-id").equalsIgnoreCase("123")) return false;
+        if(getChannel().equalsIgnoreCase("123")) return false;
 
         return true;
     }

@@ -2,3 +2,8 @@ name: DiscordLink
 version: 0.0.1
 author: KarateMan
 main: com.karateman.discordlink.DiscordLinkPlugin
+commands:
+  verify:
+    description: Verify yourself with Discord!
+  unverify:
+    description: Unverify yourself from Discord!

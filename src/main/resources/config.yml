@@ -59,7 +59,7 @@ verification-module: False
 verification-channel-id: '123'
 verification-role-id: '123'
 
-# Change this to either json, mysql, or sqlite
+# Currently json is the only available type. MySQL and SQLite coming in the future.
 verification-storage: 'json'
 
 # Set your SQL settings if you choose to use it
@@ -68,7 +68,7 @@ user: 'user'
 pass: 'pass'
 
 # Don't modify this
-verification-message: '123'
+verification-message-id: '123'
 
 # It is recommended that you remove the Change Nickname permission for everyone as the Verification Module will set their nickname to their in-game name
 

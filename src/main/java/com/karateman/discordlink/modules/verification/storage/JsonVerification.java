@@ -1,4 +1,4 @@
-package com.karateman.discordlink.verification;
+package com.karateman.discordlink.modules.verification.storage;
 
 import org.bukkit.entity.Player;
 
@@ -16,6 +16,14 @@ public class JsonVerification implements VerificationType {
     public void verifyUser(String code, String mcUsername) {
         verifications.put(verificationCodes.get(code), mcUsername);
         verificationCodes.remove(code);
+    }
+
+    public void unVerify(Player player) {
+        for(String discordId : verifications.keySet()) {
+            if(verifications.get(discordId).equalsIgnoreCase(player.getName())) {
+                verifications.remove(discordId);
+            }
+        }
     }
 
     public boolean isVerified(String discordId) {

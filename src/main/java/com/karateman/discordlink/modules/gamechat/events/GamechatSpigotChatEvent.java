@@ -17,7 +17,7 @@ public class GamechatSpigotChatEvent implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         String format = plugin.getConfig().getString("gamechat-discord-format");
-        if(format.contains("%prefix%")) format = format.replace("%prefix%", RankUtil.getRankPrefix(event.getPlayer()));
+        if(format.contains("%prefix%")) format = format.replace("%prefix%", plugin.getRankUtil().getRankPrefix(event.getPlayer()));
         if(format.contains("%username%")) format = format.replace("%username%", event.getPlayer().getName());
         if(format.contains("%message%")) format = format.replace("%message%", event.getMessage());
 

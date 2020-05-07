@@ -8,13 +8,13 @@ import static org.bukkit.Bukkit.getServer;
 
 public class RankUtil {
 
-    private static Chat chat = null;
+    private Chat chat = null;
 
     public RankUtil() {
         setupChat();
     }
 
-    public static String getRankPrefix(Player player) {
+    public String getRankPrefix(Player player) {
         try {
             StringBuilder prefix = new StringBuilder();
 

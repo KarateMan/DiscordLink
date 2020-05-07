@@ -3,6 +3,7 @@ package com.karateman.discordlink;
 import com.karateman.discordlink.modules.util.DiscordUtils;
 import com.karateman.discordlink.modules.commands.CommandsModule;
 import com.karateman.discordlink.modules.gamechat.GamechatModule;
+import com.karateman.discordlink.modules.util.RankUtil;
 import com.karateman.discordlink.modules.verification.VerificationModule;
 import com.karateman.discordlink.modules.util.ConfigUtil;
 import net.dv8tion.jda.api.JDA;
@@ -19,6 +20,7 @@ public class DiscordLinkPlugin extends JavaPlugin {
     private CommandsModule commandsModule;
 
     private DiscordUtils discordUtils;
+    private RankUtil rankUtil;
 
     @Override
     public void onEnable() {
@@ -31,13 +33,13 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
         jda = new Bot(this).getJda();
         discordUtils = new DiscordUtils(jda, this);
+        rankUtil = new RankUtil();
 
         gamechatModule = new GamechatModule(this);
         gamechatModule.runStartup();
 
         verificationModule = new VerificationModule(this);
         verificationModule.runStartup();
-        verificationModule.setup();
 
         commandsModule = new CommandsModule(this);
         commandsModule.runStartup();
@@ -46,6 +48,8 @@ public class DiscordLinkPlugin extends JavaPlugin {
             getLogger().severe("No modules are enabled. Disabling plugin.");
             getPluginLoader().disablePlugin(this);
         }
+
+        getCommand("discordlink").setExecutor(new DiscordLinkCommand(this));
     }
 
     @Override
@@ -54,6 +58,7 @@ public class DiscordLinkPlugin extends JavaPlugin {
         gamechatModule.runShutdown();
         verificationModule.runShutdown();
         commandsModule.runShutdown();
+        getJda().shutdownNow();
     }
 
     @Override
@@ -111,6 +116,10 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
     public JDA getJda() {
         return jda;
+    }
+
+    public RankUtil getRankUtil() {
+        return rankUtil;
     }
 
     public DiscordUtils getDiscordUtils() {

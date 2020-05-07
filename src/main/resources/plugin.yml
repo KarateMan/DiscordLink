@@ -7,3 +7,5 @@ commands:
     description: Verify yourself with Discord!
   unverify:
     description: Unverify yourself from Discord!
+  discordlink:
+    description: Main plugin command

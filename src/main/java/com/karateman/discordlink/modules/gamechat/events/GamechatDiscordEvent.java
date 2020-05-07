@@ -6,6 +6,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class GamechatDiscordEvent implements EventListener {
 
@@ -22,11 +24,21 @@ public class GamechatDiscordEvent implements EventListener {
 
         if(event.getAuthor().isBot()) return;
         if(!event.getChannel().getId().equalsIgnoreCase(plugin.getGamechatModule().getChannel())) return;
+        if(plugin.getCommandsModule().isEnabled()
+                && (event.getMessage().getContentRaw().startsWith(plugin.getConfig().getString("commands-prefix"))
+                || event.getMessage().getContentRaw().startsWith(plugin.getConfig().getString("commands-silent-prefix"))))
 
-        String format = plugin.getConfig().getString("gamechat-server-format");
-        if(format.contains("%discord_nick%")) format = format.replace("%discord_nick%", event.getMember().getEffectiveName());
-        if(format.contains("%message%")) format = format.replace("%message%", event.getMessage().getContentDisplay());
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                String format = plugin.getConfig().getString("gamechat-server-format");
+                if(format.contains("%discord_nick%")) format = format.replace("%discord_nick%", event.getMember().getEffectiveName());
+                if(format.contains("%message%")) format = format.replace("%message%", event.getMessage().getContentDisplay());
 
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', format));
+                for(Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', format));
+                }
+            }
+        }.runTask(plugin);
     }
 }

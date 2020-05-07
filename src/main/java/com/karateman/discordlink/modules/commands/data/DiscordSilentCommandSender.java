@@ -2,6 +2,8 @@ package com.karateman.discordlink.modules.commands.data;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.requests.RestAction;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.PermissibleBase;
@@ -13,16 +15,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class DiscordCommandSender implements CommandSender {
+public class DiscordSilentCommandSender implements CommandSender {
 
     private final Server server;
     private final PermissibleBase perm = new PermissibleBase(this);
 
-    private String channel;
+    private RestAction<PrivateChannel> channel;
     private DiscordLinkPlugin plugin;
     private String command;
 
-    public DiscordCommandSender(Server server, String channel, DiscordLinkPlugin plugin, String command) {
+    public DiscordSilentCommandSender(Server server, RestAction<PrivateChannel> channel, DiscordLinkPlugin plugin, String command) {
         this.server = server;
         this.channel = channel;
         this.plugin = plugin;
@@ -33,7 +35,9 @@ public class DiscordCommandSender implements CommandSender {
     public void sendMessage(String s) {
         EmbedBuilder embed = plugin.getDiscordUtils().getDefaultEmbed("Command Response");
         embed.addField(command, s, false);
-        plugin.getDiscordUtils().sendMessage(embed.build(), channel);
+        channel.queue((privateChannel) -> {
+            privateChannel.sendMessage(embed.build()).queue();
+        });
     }
 
     @Override
@@ -46,7 +50,9 @@ public class DiscordCommandSender implements CommandSender {
         }
         embed.addField(command, field, false);
 
-        plugin.getDiscordUtils().sendMessage(embed.build(), channel);
+        channel.queue((privateChannel) -> {
+            privateChannel.sendMessage(embed.build()).queue();
+        });
     }
 
     public boolean isOp() {

@@ -54,7 +54,6 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        saveConfig();
         gamechatModule.runShutdown();
         verificationModule.runShutdown();
         commandsModule.runShutdown();

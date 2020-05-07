@@ -23,6 +23,7 @@ public class GamechatModule implements Module {
         plugin.getJda().getGuilds().get(0).createCategory("discord link").queue((category) -> {
             category.createTextChannel("gamechat").queue((channel) -> {
                 plugin.getConfig().set("gamechat-id", channel.getId());
+                plugin.saveConfig();
             });
         });
 

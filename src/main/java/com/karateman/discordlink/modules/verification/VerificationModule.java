@@ -70,6 +70,7 @@ public class VerificationModule implements Module {
             });
         }
 
+        plugin.saveConfig();
         runStartup();
 
         return true;

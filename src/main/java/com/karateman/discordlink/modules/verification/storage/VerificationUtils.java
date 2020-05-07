@@ -2,6 +2,7 @@ package com.karateman.discordlink.modules.verification.storage;
 
 import com.google.gson.Gson;
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.configuration.Config;
 import org.bukkit.entity.Player;
 
 import java.io.*;
@@ -36,7 +37,7 @@ public class VerificationUtils {
             codeBuilder.append(x);
         }
         //TODO: Take into account repeat codes
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -59,7 +60,7 @@ public class VerificationUtils {
     }
 
     public void verifyUser(String code, String mcUsername) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -80,7 +81,7 @@ public class VerificationUtils {
     }
 
     public boolean isVerified(String discordId) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -99,7 +100,7 @@ public class VerificationUtils {
     }
 
     public boolean isVerified(Player player) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -118,7 +119,7 @@ public class VerificationUtils {
     }
 
     public boolean checkCode(String code) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -137,7 +138,7 @@ public class VerificationUtils {
     }
 
     public boolean hasCode(String discordId) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -156,7 +157,7 @@ public class VerificationUtils {
     }
 
     public String getDiscord(String username) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);
@@ -175,7 +176,7 @@ public class VerificationUtils {
     }
 
     public void unVerify(Player player) {
-        String storageType = plugin.getConfig().getString("verification-storage");
+        String storageType = Config.VERIFICATION_STORAGE_TYPE.getAsString();
         if(storageType.equalsIgnoreCase("json")) {
             try {
                 JsonVerification jsonVerification = new Gson().fromJson(new FileReader(new File("plugins/DiscordLink/verifications.json")), JsonVerification.class);

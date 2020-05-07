@@ -19,15 +19,18 @@ server-ip: 'server.com'
 # If you know what you are doing you can set all of the IDs manually
 
 ###########################################################
-#                      Gamechat Module                    #
+#                      GameChat Module                    #
 ###########################################################
-# Settings related to the Gamechat Module
+# Settings related to the GameChat Module
 
-# Enable the Gamechat Module
+# Enable the GameChat Module
 gamechat-module: True
 
 # Gamechat channel id
 gamechat-id: '123'
+
+# Enable or Disable in-game messages
+gamechat-ingame-messages: True
 
 # The format that will be shown in Discord
 gamechat-discord-format: '%prefix% %username%: %message%'
@@ -45,8 +48,10 @@ gamechat-loginlogout-messages: True
 gamechat-login-message: '%prefix% %username% Has logged in'
 gamechat-logout-message: '%prefix% %username% Has logged out'
 
-# Enable or Disable in-game messages
-gamechat-ingame-messages: True
+# Death Messages
+gamechat-death-messages: False
+# %default% is the default death message. You can also use %username%.
+gamechat-death-format: '%username% Has died'
 
 # Note that if you are using the Verification Module the channel should have send permissions denied for @everyone and allowed for Verified
 
@@ -93,3 +98,9 @@ commands-silent-prefix: '#/'
 # Channel to allow commands to be run in
 # Use 'gamechat', 'any', or put in your own channel ID
 commands-channel: 'gamechat'
+
+###########################################################
+#                     General Settings                    #
+###########################################################
+
+check-updates: True

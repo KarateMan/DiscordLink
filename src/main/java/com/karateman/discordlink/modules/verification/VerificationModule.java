@@ -1,5 +1,6 @@
 package com.karateman.discordlink.modules.verification;
 
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.data.Module;
 import com.karateman.discordlink.DiscordLinkPlugin;
 import com.karateman.discordlink.modules.verification.commands.UnVerifyCommand;
@@ -34,14 +35,14 @@ public class VerificationModule implements Module {
 
         if(getChannel().equalsIgnoreCase("123")) {
             category.createTextChannel("verification").queue((channel) -> {
-                plugin.getConfig().set("verification-channel-id", channel.getId());
+                plugin.getConfig().set(Config.VERIFICATION_CHANNEL_ID.getId(), channel.getId());
                 plugin.saveConfig();
                 if(getMessage().equalsIgnoreCase("123")) {
                     MessageEmbed embed = plugin.getDiscordUtils().getDefaultEmbed("Discord Link")
                             .addField("__**Verification**__", "React with the check mark below to Verify!", false).build();
 
                     plugin.getJda().getTextChannelById(getChannel()).sendMessage(embed).queue((msg) -> {
-                        plugin.getConfig().set("verification-message-id", msg.getId());
+                        plugin.getConfig().set(Config.VERIFICATION_MESSAGE_ID.getId(), msg.getId());
                         plugin.saveConfig();
                         plugin.getDiscordUtils().react("U+2714", msg);
                     });
@@ -51,7 +52,7 @@ public class VerificationModule implements Module {
 
         if(getRole().equalsIgnoreCase("123")) {
             plugin.getJda().getGuilds().get(0).createRole().setName("Verified").queue((role) -> {
-                plugin.getConfig().set("verification-role-id", role.getId());
+                plugin.getConfig().set(Config.VERIFICATION_ROLE_ID.getId(), role.getId());
                 plugin.saveConfig();
                 if(plugin.getGamechatModule().isEnabled()) {
                     try {
@@ -90,7 +91,7 @@ public class VerificationModule implements Module {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("verification-module");
+        return Config.VERIFICATION_MODULE.getAsBoolean();
     }
 
     @Override
@@ -109,14 +110,14 @@ public class VerificationModule implements Module {
     }
 
     public String getChannel() {
-        return plugin.getConfig().getString("verification-channel-id");
+        return Config.VERIFICATION_CHANNEL_ID.getAsString();
     }
 
     public String getRole() {
-        return plugin.getConfig().getString("verification-role-id");
+        return Config.VERIFICATION_ROLE_ID.getAsString();
     }
 
     public String getMessage() {
-        return plugin.getConfig().getString("verification-message-id");
+        return Config.VERIFICATION_MESSAGE_ID.getAsString();
     }
 }

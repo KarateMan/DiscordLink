@@ -1,6 +1,7 @@
 package com.karateman.discordlink.modules.commands.events;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.commands.data.DiscordCommandSender;
 import com.karateman.discordlink.modules.commands.data.DiscordSilentCommandSender;
 import net.dv8tion.jda.api.Permission;
@@ -34,8 +35,8 @@ public class CommandsDiscordChatEvent implements EventListener {
             return;
         }
 
-        String prefix = plugin.getConfig().getString("commands-prefix");
-        String silentPrefix = plugin.getConfig().getString("commands-silent-prefix");
+        String prefix = Config.COMMANDS_PREFIX.getAsString();
+        String silentPrefix = Config.COMMANDS_SILENT_PREFIX.getAsString();
 
         if(!(event.getMessage().getContentRaw().startsWith(prefix) || event.getMessage().getContentRaw().startsWith(silentPrefix))) return;
 

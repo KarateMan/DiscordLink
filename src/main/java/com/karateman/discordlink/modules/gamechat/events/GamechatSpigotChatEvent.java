@@ -1,6 +1,7 @@
 package com.karateman.discordlink.modules.gamechat.events;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.util.RankUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,9 +17,9 @@ public class GamechatSpigotChatEvent implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        if(!plugin.getConfig().getBoolean("gamechat-ingame-messages")) return;
+        if(!Config.GAMECHAT_INGAME_MESSAGES.getAsBoolean()) return;
 
-        String format = plugin.getConfig().getString("gamechat-discord-format");
+        String format = Config.GAMECHAT_DISCORD_FORMAT.getAsString();
         if(format.contains("%prefix%")) format = format.replace("%prefix%", plugin.getRankUtil().getRankPrefix(event.getPlayer()));
         if(format.contains("%username%")) format = format.replace("%username%", event.getPlayer().getName());
         if(format.contains("%message%")) format = format.replace("%message%", event.getMessage());

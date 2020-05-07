@@ -20,6 +20,11 @@ public class DiscordLinkCommand implements CommandExecutor {
             return false;
         }
 
+        if(args.length == 1) {
+            if(args[0].equalsIgnoreCase("reload")) plugin.reloadConfig();
+            return false;
+        }
+
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bBeginning setup of your Discord!"));
 
         if(plugin.getGamechatModule().isEnabled()) {

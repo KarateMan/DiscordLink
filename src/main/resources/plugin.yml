@@ -1,5 +1,5 @@
 name: DiscordLink
-version: 0.0.1
+version: 2.2.3
 author: KarateMan
 main: com.karateman.discordlink.DiscordLinkPlugin
 commands:

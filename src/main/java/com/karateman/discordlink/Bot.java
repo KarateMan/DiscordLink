@@ -1,5 +1,6 @@
 package com.karateman.discordlink;
 
+import com.karateman.discordlink.configuration.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -15,9 +16,9 @@ public class Bot {
         this.plugin = plugin;
 
         try {
-            String serverName = plugin.getConfig().getString("server-name");
-            String serverIp = plugin.getConfig().getString("server-ip");
-            JDA jda = new JDABuilder(plugin.getConfig().getString("token")).setActivity(Activity.playing(serverName + " at " + serverIp)).build().awaitReady();
+            String serverName = Config.SERVER_NAME.getAsString();
+            String serverIp = Config.SERVER_IP.getAsString();
+            JDA jda = new JDABuilder(Config.TOKEN.getAsString()).setActivity(Activity.playing(serverName + " at " + serverIp)).build().awaitReady();
             this.jda = jda;
         } catch (LoginException | InterruptedException exception) {
             exception.printStackTrace();

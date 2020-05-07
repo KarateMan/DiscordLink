@@ -1,5 +1,6 @@
 package com.karateman.discordlink.modules.commands;
 
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.commands.events.CommandsDiscordChatEvent;
 import com.karateman.discordlink.modules.data.Module;
 import com.karateman.discordlink.DiscordLinkPlugin;
@@ -27,7 +28,7 @@ public class CommandsModule implements Module {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("commands-module");
+        return Config.COMMANDS_MODULE.getAsBoolean();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class CommandsModule implements Module {
     }
 
     public boolean validChannel(String channel) {
-        String commandChannel = plugin.getConfig().getString("commands-channel");
+        String commandChannel = Config.COMMANDS_CHANNEL.getAsString();
         if(commandChannel.equalsIgnoreCase("any")) return true;
         if(commandChannel.equalsIgnoreCase(channel)) return true;
         if(commandChannel.equalsIgnoreCase("gamechat")) {

@@ -1,8 +1,10 @@
 package com.karateman.discordlink.modules.gamechat;
 
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.data.Module;
-import com.karateman.discordlink.modules.gamechat.events.GamechatDiscordEvent;
+import com.karateman.discordlink.modules.gamechat.events.GamechatDiscordChatEvent;
 import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotChatEvent;
+import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotDeathEvent;
 import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotLoginLogoutEvent;
 import com.karateman.discordlink.DiscordLinkPlugin;
 
@@ -22,7 +24,7 @@ public class GamechatModule implements Module {
 
         plugin.getJda().getGuilds().get(0).createCategory("discord link").queue((category) -> {
             category.createTextChannel("gamechat").queue((channel) -> {
-                plugin.getConfig().set("gamechat-id", channel.getId());
+                plugin.getConfig().set(Config.GAMECHAT_ID.getId(), channel.getId());
                 plugin.saveConfig();
             });
         });
@@ -42,17 +44,18 @@ public class GamechatModule implements Module {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("gamechat-module");
+        return Config.GAMECHAT_MODULE.getAsBoolean();
     }
 
     @Override
     public void runStartup() {
         if(isEnabled() && isSetup()) {
             plugin.getLogger().log(Level.INFO, "Enabling Gamechat Module");
-            plugin.getJda().addEventListener(new GamechatDiscordEvent(plugin));
+            plugin.getJda().addEventListener(new GamechatDiscordChatEvent(plugin));
             plugin.getServer().getPluginManager().registerEvents(new GamechatSpigotChatEvent(plugin), plugin);
             if(startStopMessages()) sendStartMessage();
             if(loginLogoutMessages()) plugin.getServer().getPluginManager().registerEvents(new GamechatSpigotLoginLogoutEvent(plugin), plugin);
+            if(Config.GAMECHAT_DEATH_MESSAGES.getAsBoolean()) plugin.getServer().getPluginManager().registerEvents(new GamechatSpigotDeathEvent(plugin), plugin);
         }
     }
 
@@ -62,27 +65,27 @@ public class GamechatModule implements Module {
     }
 
     public String getChannel() {
-        return plugin.getConfig().getString("gamechat-id");
+        return Config.GAMECHAT_ID.getAsString();
     }
 
     public boolean startStopMessages() {
-        return plugin.getConfig().getBoolean("gamechat-startstop-messages");
+        return Config.GAMECHAT_STARTSTOP_MESSAGES.getAsBoolean();
     }
 
     public boolean loginLogoutMessages() {
-        return plugin.getConfig().getBoolean("gamechat-loginlogout-messages");
+        return Config.GAMECHAT_LOGINLOGOUT_MESSAGES.getAsBoolean();
     }
 
     private void sendStartMessage() {
-        plugin.getDiscordUtils().sendMessage(plugin.getConfig().getString("gamechat-start-message"), getChannel());
+        plugin.getDiscordUtils().sendMessage(Config.GAMECHAT_START_FORMAT.getAsString(), getChannel());
     }
 
     private void sendStopMessage() {
-        plugin.getDiscordUtils().sendMessage(plugin.getConfig().getString("gamechat-stop-message"), getChannel());
+        plugin.getDiscordUtils().sendMessage(Config.GAMECHAT_STOP_FORMAT.getAsString(), getChannel());
     }
 
     public void sendLoginMessage(String username, String prefix) {
-        String format = plugin.getConfig().getString("gamechat-login-message");
+        String format = Config.GAMECHAT_LOGIN_FORMAT.getAsString();
 
         if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
         if(format.contains("%username%")) format = format.replace("%username%", username);
@@ -91,7 +94,7 @@ public class GamechatModule implements Module {
     }
 
     public void sendLogoutMessage(String username, String prefix) {
-        String format = plugin.getConfig().getString("gamechat-logout-message");
+        String format = Config.GAMECHAT_LOGOUT_FORMAT.getAsString();
 
         if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
         if(format.contains("%username%")) format = format.replace("%username%", username);

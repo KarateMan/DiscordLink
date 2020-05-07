@@ -1,15 +1,18 @@
 package com.karateman.discordlink;
 
+import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.util.DiscordUtils;
 import com.karateman.discordlink.modules.commands.CommandsModule;
 import com.karateman.discordlink.modules.gamechat.GamechatModule;
 import com.karateman.discordlink.modules.util.RankUtil;
+import com.karateman.discordlink.modules.util.UpdateChecker;
 import com.karateman.discordlink.modules.verification.VerificationModule;
-import com.karateman.discordlink.modules.util.ConfigUtil;
+import com.karateman.discordlink.configuration.ConfigUtil;
 import net.dv8tion.jda.api.JDA;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
+import java.util.logging.Logger;
 
 public class DiscordLinkPlugin extends JavaPlugin {
 
@@ -50,6 +53,8 @@ public class DiscordLinkPlugin extends JavaPlugin {
         }
 
         getCommand("discordlink").setExecutor(new DiscordLinkCommand(this));
+
+        if(Config.CHECK_UPDATES.getAsBoolean()) checkUpdates();
     }
 
     @Override
@@ -99,6 +104,18 @@ public class DiscordLinkPlugin extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void checkUpdates() {
+        Logger logger = this.getLogger();
+
+        new UpdateChecker(this, 78446).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logger.info("Running latest version");
+            } else {
+                logger.info("There is a new update available.");
+            }
+        });
     }
 
     public GamechatModule getGamechatModule() {

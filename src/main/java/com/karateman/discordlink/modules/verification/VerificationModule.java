@@ -7,7 +7,6 @@ import com.karateman.discordlink.modules.verification.commands.VerifyCommand;
 import com.karateman.discordlink.modules.verification.events.VerificationDiscordReactEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 
@@ -36,12 +35,14 @@ public class VerificationModule implements Module {
         if(getChannel().equalsIgnoreCase("123")) {
             category.createTextChannel("verification").queue((channel) -> {
                 plugin.getConfig().set("verification-channel-id", channel.getId());
+                plugin.saveConfig();
                 if(getMessage().equalsIgnoreCase("123")) {
                     MessageEmbed embed = plugin.getDiscordUtils().getDefaultEmbed("Discord Link")
                             .addField("__**Verification**__", "React with the check mark below to Verify!", false).build();
 
                     plugin.getJda().getTextChannelById(getChannel()).sendMessage(embed).queue((msg) -> {
                         plugin.getConfig().set("verification-message-id", msg.getId());
+                        plugin.saveConfig();
                         plugin.getDiscordUtils().react("U+2714", msg);
                     });
                 }
@@ -51,6 +52,7 @@ public class VerificationModule implements Module {
         if(getRole().equalsIgnoreCase("123")) {
             plugin.getJda().getGuilds().get(0).createRole().setName("Verified").queue((role) -> {
                 plugin.getConfig().set("verification-role-id", role.getId());
+                plugin.saveConfig();
                 if(plugin.getGamechatModule().isEnabled()) {
                     try {
                         plugin.getJda().getTextChannelById(plugin.getGamechatModule().getChannel()).createPermissionOverride(role).setAllow(Permission.MESSAGE_WRITE).queue();

@@ -13,6 +13,19 @@ public class VerificationUtils {
 
     public VerificationUtils(DiscordLinkPlugin plugin) {
         this.plugin = plugin;
+
+        File json = new File("plugins/DiscordLink/verifications.json");
+        if(json.exists()) return;
+
+        try {
+            JsonVerification jsonVerification = new JsonVerification();
+            OutputStream outputStream = new FileOutputStream(new File("plugins/DiscordLink/verifications.json"));
+            outputStream.write(new Gson().toJson(jsonVerification).getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String createVerificationCode(String discordId) {

@@ -45,6 +45,9 @@ gamechat-loginlogout-messages: True
 gamechat-login-message: '%prefix% %username% Has logged in'
 gamechat-logout-message: '%prefix% %username% Has logged out'
 
+# Enable or Disable in-game messages
+gamechat-ingame-messages: True
+
 # Note that if you are using the Verification Module the channel should have send permissions denied for @everyone and allowed for Verified
 
 ###########################################################

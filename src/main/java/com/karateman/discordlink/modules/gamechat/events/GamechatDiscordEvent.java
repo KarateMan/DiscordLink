@@ -26,7 +26,7 @@ public class GamechatDiscordEvent implements EventListener {
         if(!event.getChannel().getId().equalsIgnoreCase(plugin.getGamechatModule().getChannel())) return;
         if(plugin.getCommandsModule().isEnabled()
                 && (event.getMessage().getContentRaw().startsWith(plugin.getConfig().getString("commands-prefix"))
-                || event.getMessage().getContentRaw().startsWith(plugin.getConfig().getString("commands-silent-prefix"))))
+                || event.getMessage().getContentRaw().startsWith(plugin.getConfig().getString("commands-silent-prefix")))) return;
 
         new BukkitRunnable() {
             @Override

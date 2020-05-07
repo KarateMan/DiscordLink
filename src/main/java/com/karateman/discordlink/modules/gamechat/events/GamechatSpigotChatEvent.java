@@ -16,10 +16,13 @@ public class GamechatSpigotChatEvent implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
+        if(!plugin.getConfig().getBoolean("gamechat-ingame-messages")) return;
+
         String format = plugin.getConfig().getString("gamechat-discord-format");
         if(format.contains("%prefix%")) format = format.replace("%prefix%", plugin.getRankUtil().getRankPrefix(event.getPlayer()));
         if(format.contains("%username%")) format = format.replace("%username%", event.getPlayer().getName());
         if(format.contains("%message%")) format = format.replace("%message%", event.getMessage());
+        format = format.replaceAll("_", "\\_");
 
         plugin.getDiscordUtils().sendMessage(format, plugin.getGamechatModule().getChannel());
     }

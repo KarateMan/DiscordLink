@@ -33,6 +33,9 @@ public class UnVerifyCommand implements CommandExecutor {
             return false;
         }
 
+        plugin.getJda().getGuilds().get(0).removeRoleFromMember(verificationUtils.getDiscord(player.getName()),
+                plugin.getJda().getRoleById(plugin.getVerificationModule().getRole())).queue();
+
         verificationUtils.unVerify(player);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bYou have been unverified!"));
 

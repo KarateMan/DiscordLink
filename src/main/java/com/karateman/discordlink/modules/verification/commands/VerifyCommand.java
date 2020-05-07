@@ -44,6 +44,8 @@ public class VerifyCommand implements CommandExecutor {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bYou have been verified with &a"
                 + plugin.getJda().getGuilds().get(0).getMemberById(verificationUtils.getDiscord(player.getName())).getNickname() + "&b!"));
 
+        plugin.getJda().getGuilds().get(0).addRoleToMember(verificationUtils.getDiscord(player.getName()),
+                plugin.getJda().getRoleById(plugin.getVerificationModule().getRole())).queue();
         return false;
     }
 }

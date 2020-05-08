@@ -33,22 +33,27 @@ gamechat-id: '123'
 gamechat-ingame-messages: True
 
 # The format that will be shown in Discord
+# Supports PlaceholderAPI
 gamechat-discord-format: '%prefix% %username%: %message%'
 
 # The format that will be shown in game
+# Does NOT Support PlaceholderAPI
 gamechat-server-format: '&8[&9Discord&8] &7%discord_nick% &8> &7%message%'
 
 # Server Start/Stop messages
+# Supports PlaceholderAPI
 gamechat-startstop-messages: True
 gamechat-start-message: '**[Server] Server starting**'
 gamechat-stop-message: '**[Server] Server stopping**'
 
 # Player Login/Logout messages
+# Supports PlaceholderAPI
 gamechat-loginlogout-messages: True
 gamechat-login-message: '%prefix% %username% Has logged in'
 gamechat-logout-message: '%prefix% %username% Has logged out'
 
 # Death Messages
+# Supports PlaceholderAPI
 gamechat-death-messages: False
 # %default% is the default death message. You can also use %username%.
 gamechat-death-format: '%username% Has died'

@@ -10,6 +10,7 @@ import com.karateman.discordlink.modules.util.UpdateChecker;
 import com.karateman.discordlink.modules.verification.VerificationModule;
 import com.karateman.discordlink.configuration.ConfigUtil;
 import net.dv8tion.jda.api.JDA;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -60,6 +61,12 @@ public class DiscordLinkPlugin extends JavaPlugin {
         getCommand("discordlink").setExecutor(new DiscordLinkCommand(this));
 
         if(Config.CHECK_UPDATES.getAsBoolean()) checkUpdates();
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+
+        } else {
+            throw new RuntimeException("Could not find PlaceholderAPI!! Plugin can not work without it!");
+        }
     }
 
     @Override
@@ -149,5 +156,9 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
     public DiscordUtils getDiscordUtils() {
         return discordUtils;
+    }
+
+    public boolean placeholderApiEnabled() {
+        return Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 }

@@ -1,7 +1,8 @@
 name: DiscordLink
 version: 2.2.3
-author: KarateMan
+author: KarateMan2400
 main: com.karateman.discordlink.DiscordLinkPlugin
+softdepend: [PlaceholderAPI]
 commands:
   verify:
     description: Verify yourself with Discord!

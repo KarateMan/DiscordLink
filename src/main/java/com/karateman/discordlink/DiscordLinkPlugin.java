@@ -61,12 +61,6 @@ public class DiscordLinkPlugin extends JavaPlugin {
         getCommand("discordlink").setExecutor(new DiscordLinkCommand(this));
 
         if(Config.CHECK_UPDATES.getAsBoolean()) checkUpdates();
-
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-
-        } else {
-            throw new RuntimeException("Could not find PlaceholderAPI!! Plugin can not work without it!");
-        }
     }
 
     @Override

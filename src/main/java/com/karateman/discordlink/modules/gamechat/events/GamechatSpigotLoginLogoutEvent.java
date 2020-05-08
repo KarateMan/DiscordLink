@@ -17,11 +17,11 @@ public class GamechatSpigotLoginLogoutEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        plugin.getGamechatModule().sendLoginMessage(event.getPlayer().getName(), plugin.getRankUtil().getRankPrefix(event.getPlayer()));
+        plugin.getGamechatModule().sendLoginMessage(event.getPlayer(), plugin.getRankUtil().getRankPrefix(event.getPlayer()));
     }
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
-        plugin.getGamechatModule().sendLogoutMessage(event.getPlayer().getName(), plugin.getRankUtil().getRankPrefix(event.getPlayer()));
+        plugin.getGamechatModule().sendLogoutMessage(event.getPlayer(), plugin.getRankUtil().getRankPrefix(event.getPlayer()));
     }
 }

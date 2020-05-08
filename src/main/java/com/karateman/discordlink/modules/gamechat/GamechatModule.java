@@ -7,6 +7,8 @@ import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotChatEvent
 import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotDeathEvent;
 import com.karateman.discordlink.modules.gamechat.events.GamechatSpigotLoginLogoutEvent;
 import com.karateman.discordlink.DiscordLinkPlugin;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
 
@@ -77,28 +79,76 @@ public class GamechatModule implements Module {
     }
 
     private void sendStartMessage() {
-        plugin.getDiscordUtils().sendMessage(Config.GAMECHAT_START_FORMAT.getAsString(), getChannel());
+        String message = Config.GAMECHAT_START_FORMAT.getAsString();
+        if(plugin.placeholderApiEnabled()) {
+            message = PlaceholderAPI.setPlaceholders(null, Config.GAMECHAT_START_FORMAT.getAsString());
+        }
+        plugin.getDiscordUtils().sendMessage(message, getChannel());
     }
 
     private void sendStopMessage() {
-        plugin.getDiscordUtils().sendMessage(Config.GAMECHAT_STOP_FORMAT.getAsString(), getChannel());
+        String message = Config.GAMECHAT_STOP_FORMAT.getAsString();
+        if(plugin.placeholderApiEnabled()) {
+            message = PlaceholderAPI.setPlaceholders(null, Config.GAMECHAT_STOP_FORMAT.getAsString());
+        }
+        plugin.getDiscordUtils().sendMessage(message, getChannel());
     }
 
-    public void sendLoginMessage(String username, String prefix) {
+    public void sendLoginMessage(Player player , String prefix) {
         String format = Config.GAMECHAT_LOGIN_FORMAT.getAsString();
 
-        if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
-        if(format.contains("%username%")) format = format.replace("%username%", username);
+        if(plugin.placeholderApiEnabled()) {
+            format = PlaceholderAPI.setPlaceholders(player, format);
+        } else {
+            if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
+            if(format.contains("%username%")) format = format.replace("%username%", player.getName());
+        }
 
-        plugin.getDiscordUtils().sendMessage(format, getChannel());
+        StringBuilder message = new StringBuilder();
+        boolean removeNext = false;
+        for(char c : format.toCharArray()) {
+            if(removeNext) {
+                removeNext = false;
+                continue;
+            }
+
+            if(c == '§' || c == '&') {
+                removeNext = true;
+                continue;
+            }
+
+            message.append(c);
+        }
+
+        plugin.getDiscordUtils().sendMessage(message.toString(), getChannel());
     }
 
-    public void sendLogoutMessage(String username, String prefix) {
+    public void sendLogoutMessage(Player player, String prefix) {
         String format = Config.GAMECHAT_LOGOUT_FORMAT.getAsString();
 
-        if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
-        if(format.contains("%username%")) format = format.replace("%username%", username);
+        if(plugin.placeholderApiEnabled()) {
+            format = PlaceholderAPI.setPlaceholders(player, format);
+        } else {
+            if(format.contains("%prefix%")) format = format.replace("%prefix%", prefix);
+            if(format.contains("%username%")) format = format.replace("%username%", player.getName());
+        }
 
-        plugin.getDiscordUtils().sendMessage(format, getChannel());
+        StringBuilder message = new StringBuilder();
+        boolean removeNext = false;
+        for(char c : format.toCharArray()) {
+            if(removeNext) {
+                removeNext = false;
+                continue;
+            }
+
+            if(c == '§' || c == '&') {
+                removeNext = true;
+                continue;
+            }
+
+            message.append(c);
+        }
+
+        plugin.getDiscordUtils().sendMessage(message.toString(), getChannel());
     }
 }

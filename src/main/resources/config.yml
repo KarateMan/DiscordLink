@@ -41,7 +41,7 @@ gamechat-discord-format: '%prefix% %username%: %message%'
 gamechat-server-format: '&8[&9Discord&8] &7%discord_nick% &8> &7%message%'
 
 # Server Start/Stop messages
-# Supports PlaceholderAPI
+# Supports PlaceholderAPI (Note: Some Server placeholders may not work during server start process)
 gamechat-startstop-messages: True
 gamechat-start-message: '**[Server] Server starting**'
 gamechat-stop-message: '**[Server] Server stopping**'

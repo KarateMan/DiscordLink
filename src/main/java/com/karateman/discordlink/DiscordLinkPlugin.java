@@ -1,6 +1,7 @@
 package com.karateman.discordlink;
 
 import com.karateman.discordlink.configuration.Config;
+import com.karateman.discordlink.modules.discord.DiscordCommandsModule;
 import com.karateman.discordlink.modules.util.DiscordUtils;
 import com.karateman.discordlink.modules.commands.CommandsModule;
 import com.karateman.discordlink.modules.gamechat.GamechatModule;
@@ -21,6 +22,7 @@ public class DiscordLinkPlugin extends JavaPlugin {
     private GamechatModule gamechatModule;
     private VerificationModule verificationModule;
     private CommandsModule commandsModule;
+    private DiscordCommandsModule discordCommandsModule;
 
     private DiscordUtils discordUtils;
     private RankUtil rankUtil;
@@ -46,6 +48,9 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
         commandsModule = new CommandsModule(this);
         commandsModule.runStartup();
+
+        discordCommandsModule = new DiscordCommandsModule(this);
+        discordCommandsModule.runStartup();
 
         if(!gamechatModule.isEnabled() && !verificationModule.isEnabled() && !commandsModule.isEnabled()) {
             getLogger().severe("No modules are enabled. Disabling plugin.");
@@ -128,6 +133,10 @@ public class DiscordLinkPlugin extends JavaPlugin {
 
     public CommandsModule getCommandsModule() {
         return commandsModule;
+    }
+
+    public DiscordCommandsModule getDiscordCommandsModule() {
+        return discordCommandsModule;
     }
 
     public JDA getJda() {

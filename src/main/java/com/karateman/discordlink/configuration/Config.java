@@ -36,6 +36,11 @@ public enum Config {
     COMMANDS_SILENT_PREFIX("commands-silent-prefix"),
     COMMANDS_CHANNEL("commands-channel"),
 
+    DISCORD_COMMANDS_MODULE("discord-commands-module"),
+    DISCORD_COMMANDS_PREFIX("discord-commands-prefix"),
+    DISCORD_COMMANDS_LIST("discord-commands-list"),
+    DISCORD_COMMANDS_CHANNEL("discord-commands-channel"),
+
     CHECK_UPDATES("check-updates");
 
     private String id;

@@ -26,7 +26,7 @@ server-ip: 'server.com'
 # Enable the GameChat Module
 gamechat-module: True
 
-# Gamechat channel id
+# Gamechat channel id (Will be set on /discordlink setup)
 gamechat-id: '123'
 
 # Enable or Disable in-game messages
@@ -75,7 +75,7 @@ address: 'address'
 user: 'user'
 pass: 'pass'
 
-# Don't modify this
+# Don't modify this (Will be set on /discordlink setup)
 verification-message-id: '123'
 
 # It is recommended that you remove the Change Nickname permission for everyone as the Verification Module will set their nickname to their in-game name
@@ -98,6 +98,24 @@ commands-silent-prefix: '#/'
 # Channel to allow commands to be run in
 # Use 'gamechat', 'any', or put in your own channel ID
 commands-channel: 'gamechat'
+
+###########################################################
+#                Discord Commands Module                  #
+###########################################################
+# Settings related to commands that you can run in Discord
+
+# Enable Discord Commands Module
+discord-commands-module: True
+
+# Prefix for Discord Commands
+discord-commands-prefix: 'd!'
+
+# Enable the list command
+discord-commands-list: True
+
+# Channel to allow Discord Commands to be run in
+# Use 'gamechat', 'any', or put in your own channel ID
+discord-commands-channel: 'gamechat'
 
 ###########################################################
 #                     General Settings                    #

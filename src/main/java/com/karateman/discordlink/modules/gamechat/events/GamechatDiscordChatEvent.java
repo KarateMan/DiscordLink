@@ -29,6 +29,8 @@ public class GamechatDiscordChatEvent implements EventListener {
                 && (event.getMessage().getContentRaw().startsWith(Config.COMMANDS_PREFIX.getAsString())
                 || event.getMessage().getContentRaw().startsWith(Config.COMMANDS_SILENT_PREFIX.getAsString()))) return;
 
+        if(plugin.getDiscordCommandsModule().isEnabled() && event.getMessage().getContentRaw().startsWith(Config.DISCORD_COMMANDS_PREFIX.getAsString())) return;
+
         new BukkitRunnable() {
             @Override
             public void run() {

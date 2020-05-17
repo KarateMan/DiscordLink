@@ -67,7 +67,7 @@ public class DiscordCommandSender implements CommandSender {
 
     @Override
     public @NotNull String getName() {
-        return null;
+        return "DISCORD";
     }
 
     @Override

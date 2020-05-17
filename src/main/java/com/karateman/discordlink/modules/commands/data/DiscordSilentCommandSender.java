@@ -73,7 +73,7 @@ public class DiscordSilentCommandSender implements CommandSender {
 
     @Override
     public @NotNull String getName() {
-        return null;
+        return "DISCORD";
     }
 
     @Override

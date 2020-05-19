@@ -1,6 +1,7 @@
 package com.karateman.discordlink.modules.verification.commands;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.modules.util.LangUtil;
 import com.karateman.discordlink.modules.verification.storage.VerificationUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,6 +19,7 @@ public class VerifyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        LangUtil langUtil = new LangUtil(plugin);
         if(!(sender instanceof Player)) return false;
         Player player = (Player) sender;
 
@@ -31,18 +33,19 @@ public class VerifyCommand implements CommandExecutor {
         String code = args[0];
 
         if(verificationUtils.isVerified(player)) {
-            player.sendMessage(ChatColor.RED + "You are already verified.");
+            player.sendMessage(ChatColor.RED + langUtil.getMessage("verification-game-message-already-verified"));
             return false;
         }
 
         if(!verificationUtils.checkCode(code)) {
-            player.sendMessage(ChatColor.RED + "That code does not exist!");
+            player.sendMessage(ChatColor.RED + langUtil.getMessage("verification-game-message-no-code"));
             return false;
         }
 
         verificationUtils.verifyUser(code, player.getName());
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bYou have been verified with &a"
-                + plugin.getJda().getGuilds().get(0).getMemberById(verificationUtils.getDiscord(player.getName())).getNickname() + "&b!"));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b"
+                + langUtil.getMessage("verification-game-message-success")
+                .replace("%discord%", plugin.getJda().getGuilds().get(0).getMemberById(verificationUtils.getDiscord(player.getName())).getNickname())));
 
         plugin.getJda().getGuilds().get(0).addRoleToMember(verificationUtils.getDiscord(player.getName()),
                 plugin.getJda().getRoleById(plugin.getVerificationModule().getRole())).queue();

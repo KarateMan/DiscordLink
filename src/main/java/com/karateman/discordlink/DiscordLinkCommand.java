@@ -1,5 +1,6 @@
 package com.karateman.discordlink;
 
+import com.karateman.discordlink.modules.util.LangUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,8 +16,9 @@ public class DiscordLinkCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        LangUtil langUtil = new LangUtil(plugin);
         if(!sender.hasPermission("discordlink.setup")) {
-            sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+            sender.sendMessage(ChatColor.RED + langUtil.getMessage("command-no-permission"));
             return false;
         }
 
@@ -30,54 +32,53 @@ public class DiscordLinkCommand implements CommandExecutor {
         if(args.length == 1) {
             if(args[0].equalsIgnoreCase("reload")) {
                 plugin.reloadConfig();
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bSuccessfully reloaded the config! " +
-                        "To enable certain features you may need to perform a server restart. Reload is not recommended."));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-reload")));
             } else if(args[0].equalsIgnoreCase("setup")) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bBeginning setup of your Discord!"));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup")));
 
                 if(plugin.getGamechatModule().isEnabled()) {
                     if(plugin.getGamechatModule().isSetup()) {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bGamechat Module is already setup. Continuing to Verification Module."));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-gamechat-already-enabled")));
                     } else {
                         if(plugin.getGamechatModule().setup()) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bSuccessfully setup the Gamechat Module!"));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-gamechat-success")));
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bGamechat Module failed to setup. Please contact the Developer for assistance."));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-gamechat-fail")));
                         }
                     }
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bGamechat Module is not enabled."));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-gamechat-not-enabled")));
                 }
 
                 if(plugin.getVerificationModule().isEnabled()) {
                     if(plugin.getVerificationModule().isSetup()) {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bVerification Module is already setup. Continuing to Commands Module."));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-verification-already-enabled")));
                     } else {
                         if(plugin.getVerificationModule().setup()) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bSuccessfully setup the Verification Module!"));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-verification-success")));
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &Verification Module failed to setup. Please contact the Developer for assistance."));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-verification-fail")));
                         }
                     }
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bVerification Module is not enabled."));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-verification-not-enabled")));
                 }
 
                 if(plugin.getCommandsModule().isEnabled()) {
                     if(plugin.getCommandsModule().isSetup()) {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bCommands Module is already setup."));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-commands-already-enabled")));
                     } else {
                         if(plugin.getCommandsModule().setup()) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bSuccessfully setup the Commands Module!"));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-commands-success")));
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bCommands Module failed to setup. Please contact the Developer for assistance."));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-commands-fail")));
                         }
                     }
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bCommands Module is not enabled."));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-commands-not-enabled")));
                 }
 
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bYour Discord server has been setup! Feel free to move the channels around."));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b" + langUtil.getMessage("command-setup-success")));
 
             }
             return false;

@@ -3,6 +3,7 @@ package com.karateman.discordlink.modules.verification;
 import com.karateman.discordlink.configuration.Config;
 import com.karateman.discordlink.modules.data.Module;
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.modules.util.LangUtil;
 import com.karateman.discordlink.modules.verification.commands.UnVerifyCommand;
 import com.karateman.discordlink.modules.verification.commands.VerifyCommand;
 import com.karateman.discordlink.modules.verification.events.VerificationDiscordReactEvent;
@@ -39,7 +40,7 @@ public class VerificationModule implements Module {
                 plugin.saveConfig();
                 if(getMessage().equalsIgnoreCase("123")) {
                     MessageEmbed embed = plugin.getDiscordUtils().getDefaultEmbed("Discord Link")
-                            .addField("__**Verification**__", "React with the check mark below to Verify!", false).build();
+                            .addField("__**Verification**__", new LangUtil(plugin).getMessage("verification-discord-message"), false).build();
 
                     plugin.getJda().getTextChannelById(getChannel()).sendMessage(embed).queue((msg) -> {
                         plugin.getConfig().set(Config.VERIFICATION_MESSAGE_ID.getId(), msg.getId());

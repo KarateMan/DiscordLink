@@ -1,6 +1,7 @@
 package com.karateman.discordlink.modules.verification.events;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.modules.util.LangUtil;
 import com.karateman.discordlink.modules.verification.storage.VerificationUtils;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -43,7 +44,7 @@ public class VerificationDiscordReactEvent implements EventListener {
         String code = verificationUtils.createVerificationCode(event.getUserId());
 
         event.getUser().openPrivateChannel().queue((channel) -> {
-            channel.sendMessage("Type `/verify " + code + "` in-game to verify yourself!").queue();
+            channel.sendMessage(new LangUtil(plugin).getMessage("verification-discord-dm").replace("%code%", code)).queue();
         });
     }
 }

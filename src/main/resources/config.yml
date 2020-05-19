@@ -126,4 +126,8 @@ discord-commands-channel: 'gamechat'
 #                     General Settings                    #
 ###########################################################
 
+# Look in DiscordLink/languages to see default languages or to add your own
+language: en.lang
+
+# Self explanatory
 check-updates: True

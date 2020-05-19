@@ -1,6 +1,7 @@
 package com.karateman.discordlink.modules.verification.commands;
 
 import com.karateman.discordlink.DiscordLinkPlugin;
+import com.karateman.discordlink.modules.util.LangUtil;
 import com.karateman.discordlink.modules.verification.storage.VerificationUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,7 +30,7 @@ public class UnVerifyCommand implements CommandExecutor {
         }
 
         if(!verificationUtils.isVerified(player)) {
-            player.sendMessage(ChatColor.RED + "You are not verified.");
+            player.sendMessage(ChatColor.RED + new LangUtil(plugin).getMessage("verification-game-message-not-verified"));
             return false;
         }
 
@@ -37,7 +38,8 @@ public class UnVerifyCommand implements CommandExecutor {
                 plugin.getJda().getRoleById(plugin.getVerificationModule().getRole())).queue();
 
         verificationUtils.unVerify(player);
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &bYou have been unverified!"));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b"
+                + new LangUtil(plugin).getMessage("verification-game-message-unverified")));
 
         return false;
     }

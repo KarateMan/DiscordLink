@@ -45,7 +45,7 @@ public class VerifyCommand implements CommandExecutor {
         verificationUtils.verifyUser(code, player.getName());
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&9DiscordLink&8] &b"
                 + langUtil.getMessage("verification-game-message-success")
-                .replace("%discord%", plugin.getJda().getGuilds().get(0).getMemberById(verificationUtils.getDiscord(player.getName())).getNickname())));
+                .replace("%discord%", plugin.getJda().getGuilds().get(0).getMemberById(verificationUtils.getDiscord(player.getName())).getEffectiveName())));
 
         plugin.getJda().getGuilds().get(0).addRoleToMember(verificationUtils.getDiscord(player.getName()),
                 plugin.getJda().getRoleById(plugin.getVerificationModule().getRole())).queue();
